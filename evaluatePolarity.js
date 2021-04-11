@@ -3,9 +3,9 @@ function evaluatePolarity(websiteInput){
 	assertTrue(typeof(websiteInput)==string)
 	// look for words like news, religion, politics, a.m.o. TODO in the string
 	// make a .json of words to look for and read it here
-	let scorecounter = 0
+	let counter = 0
 	if (websiteInput.includes("news") || websiteInput.includes("religion") || websiteInput.includes("politics")) {
-	    scorecounter += 1;
+	    counter += 1;
 	}
 	// look for emojis in the string
 	// found at https://stackoverflow.com/questions/37089427/javascript-find-emoji-in-string-and-parse
@@ -17,8 +17,10 @@ function evaluatePolarity(websiteInput){
 
 	// if (string.match(reg)) {
 	//     alert("emoji found");
-	// }	
+        counter += 1000
+	// }
+
 	// document.getElementById("output").innerHTML = websiteInput; //Printing the contents of the current tab into the popup
 	document.getElementById("output").innerHTML = typeof websiteInput;
-	return scorecounter;
+	return counter;
 }
