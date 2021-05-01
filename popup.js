@@ -3,7 +3,7 @@ let checkPolarity = document.getElementById("checkPolarity");
 // chrome.storage.sync.get("color", ({ color }) => {
 // 	changeColor.style.backgroundColor = color;
 // });
-	
+
 // When the button is clicked, inject setPageBackGroundColor into current page
 checkPolarity.addEventListener("click", async () => {
 	let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -30,7 +30,7 @@ checkPolarity.addEventListener("click", async () => {
 				case "4chan.org":
 					//websiteInput = .8;
 					threshhold = evaluatePolarity(websiteInput);
-					break; 
+					break;
 				case "www.facebook.com": // ranked #2, de-de.facebook.com etc. will not work
 					//websiteInput = .8;
 					threshhold = evaluatePolarity(websiteInput);
@@ -52,8 +52,10 @@ checkPolarity.addEventListener("click", async () => {
 					threshhold = evaluatePolarity(websiteInput);
 					break;
 				case "twitter.com": // ranked #6
-					websiteInput = .8;
+                    console.log("reached twitter");
+					// websiteInput = .8;
 					threshhold = evaluatePolarity(websiteInput);
+                    console.log({ threshhold });
 					break;
 				case "www.youtube.com": // ranked #1
 					websiteInput = .8;
@@ -62,21 +64,23 @@ checkPolarity.addEventListener("click", async () => {
 				default:
 					threshhold = 0 // should deactivate all output instead
 			}
-			
+
 			if (1 > threshhold && threshhold > .5) {
 				let string = "Polarizing";
 				document.getElementById("output").innerHTML = string;
+                // alert(string);
 			}
 			else if (.5 > threshhold && threshhold > 0){
 				let string = "Not polarizing";
 				document.getElementById("output").innerHTML = string;
+                // alert(string);
 			}
 			else {console.log("Threshhold not in valid range")}
     		});
 
 });
 
-// The body of this function will be executed as a content script inside the 
+// The body of this function will be executed as a content script inside the
 // current page
 function setPageBackgroundColor() {
 	chrome.storage.sync.get("color", ({ color }) => {
