@@ -1,6 +1,6 @@
-function evaluatePolarity(websiteInput){
+function evaluatePolarity(domain, websiteInput){
     console.assert(typeof(websiteInput) == "string", { websiteInput });
-    // look for words like news, religion, politics, a.m.o. TODO in the strin
+    // look for words like news, religion, politics, a.m.o. TODO in the string
     let counter = 0
     if (websiteInput.includes("news") || websiteInput.includes("religion") || websiteInput.includes("politics")) {
         counter += .1;
@@ -15,37 +15,16 @@ function evaluatePolarity(websiteInput){
     }
 
     var xhr = new XMLHttpRequest();
-    // put websiteInput in url so that python server treats it as a variable
     // need to string.rstrip("""").join(" ") and maybe remove other chars
-    urlstr = "http://192.168.178.45/polarizingornot?arg1=value1&arg2=" + websiteInput;
-    console.log({ urlstr });
+    // urlstr = "http://192.168.178.45:5000/polarizingornot?socialmedia=" + domain + "&sourcecontent=" + websiteInput;
+    urlstr = "http://192.168.178.45:5000/polarizingornot\?socialmedia\=twatter\&sourcecontent\=blablabla"
     xhr.open("GET", urlstr, true); // specify user name?
     xhr.onreadystatechange = function() {
-          if (xhr.readyState == 4) {
-                var resp = JSON.parse(xhr.responseText);
-          }
+      if (xhr.readyState == 4) {
+            resp = JSON.parse(xhr.responseText);
+      }
     }
     xhr.send();
 
-    console.log({ resp });
-
-//    chrome.runtime.onMessage.addListener(
-//        function(request, sender, sendResponse) {
-//          if (request.contentScriptQuery == 'queryPrice') {
-//            var url = 'https://another-site.com/price-query?itemId=' +
-//                encodeURIComponent(request.itemId);
-//            fetch(url)
-//                .then(response => response.text())
-//                .then(text => parsePrice(text))
-//                .then(price => sendResponse(price))
-//                .catch(error => ...)
-//            return true;  // Will respond asynchronously.
-//          }
-//        });
-//
-//    chrome.runtime.sendMessage(
-//        {contentScriptQuery: 'queryPrice', itemId: 12345},
-//        price => ...);
-
-    return counter;
+    return resp;
 }

@@ -54,7 +54,7 @@ checkPolarity.addEventListener("click", async () => {
 				case "twitter.com": // ranked #6
                     console.log("reached twitter");
 					// websiteInput = .8;
-					threshhold = evaluatePolarity(websiteInput);
+					threshhold = evaluatePolarity(domain.hostname, websiteInput);
                     console.log({ threshhold });
 					break;
 				case "www.youtube.com": // ranked #1
