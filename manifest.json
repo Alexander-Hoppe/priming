@@ -3,9 +3,6 @@
 	"description": "Evaluates whether content of popular social media websites could polarize",
 	"version": "1.0",
 	"manifest_version": 3,
-	"background": {
-		"service_worker": "background.js"
-	},
 	"permissions": ["storage", "activeTab", "scripting"],
     "host_permissions": [
         "https://*.google.com/", "http://192.168.178.45/"
