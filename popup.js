@@ -1,20 +1,16 @@
 let checkPolarity = document.getElementById("checkPolarity");
 
-// When the button is clicked, inject setPageBackGroundColor into current page
 checkPolarity.addEventListener("click", async () => {
 	let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
 	// Grab the tab's url to build the twitter, fb, insta, snap, reddit, 4chan, etc. switch case
 	let domain = (new URL(tab.url));
 	let threshold; //websiteInput, threshold;
-	// let testWebsiteInput;
 	chrome.scripting.executeScript({
 			target: { tabId: tab.id },
 			function: scrapeSource
 		},
 	    	(injectionResults) => {
-      			//for (const frameResult of injectionResults)
-			//.... = frameResult.result;
 
 			let websiteInput = injectionResults[0].result;
 
@@ -46,7 +42,7 @@ checkPolarity.addEventListener("click", async () => {
 				case "twitter.com": // ranked #6
                     console.log("reached twitter");
 					// websiteInput = .8;
-					threshhold = evaluatePolarity(domain.hostname, websiteInput);
+					threshhold = evaluatePolarity(domain, websiteInput);
                     console.log({ threshhold });
 					break;
 				case "www.youtube.com": // ranked #1
@@ -74,7 +70,7 @@ checkPolarity.addEventListener("click", async () => {
 
 });
 
-// Get the html source contents of the url in the current tab
+// Get the innerText of the url in the current tab
 function scrapeSource() {
-	return document.documentElement.outerHTML;
+    return document.documentElement.innerText;
 }
