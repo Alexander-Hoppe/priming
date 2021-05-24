@@ -59,7 +59,7 @@ checkPolarity.addEventListener("click", async () => {
                 document.body.style.backgroundColor = 'red';
                 // alert(string);
 			}
-			else if (.5 > threshhold && threshhold > 0){
+			else if (.5 > threshhold && threshhold >= 0){
 				let string = "Not polarizing";
 				document.getElementById("output").innerHTML = string;
                 document.body.style.backgroundColor = 'green';
