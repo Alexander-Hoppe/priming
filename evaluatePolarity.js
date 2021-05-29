@@ -1,4 +1,4 @@
-function evaluatePolarity(domain, websiteInput){
+function evaluatePolarity(domain, websiteInput, callback){
     console.assert(typeof(websiteInput) == "string", { websiteInput });
 
     // This only works when viewing a tweet with its response, i.e. when
@@ -12,15 +12,13 @@ function evaluatePolarity(domain, websiteInput){
     }
 
     var xhr = new XMLHttpRequest();
-    // need to string.rstrip("""").join(" ") and maybe remove other chars
     urlstr = "http://192.168.178.45:5000/polarizingornot?socialmedia=" + domain + "&sourcecontent=" + websiteInput;
     xhr.open("GET", urlstr, true); // specify user name?
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4) {
-            resp = JSON.parse(xhr.responseText);
+            callback(JSON.parse(xhr.responseText));
       }
     }
     xhr.send();
 
-    return resp;
 }
